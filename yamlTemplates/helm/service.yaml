@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+{{.Values.service.annotations | toYaml | indent 4}}
+  name: {{.Values.name}}
+  namespace: {{.Values.namespace}}
+spec:
+  selector:
+{{.Values.service.svcSelector | toYaml | indent 4}}
+  type: {{.Values.service.svcType}}
+  {{- if .Values.service.svcTrafficPol}}
+  externalTrafficPolicy: {{.Values.service.svcTrafficPol}}
+  {{- end}}
+  ports:
+    - name: {{.Values.service.httpSvcPort.name}}
+{{.Values.service.httpSvcPort.httpPort | toYaml | indent 6}}
+    {{- if .Values.service.httpsSvcPort.enabled}}
+    - name: {{.Values.service.httpsSvcPort.name}}
+{{.Values.service.httpsSvcPort.httpsPort | toYaml | indent 6}}
+  {{- end}}
