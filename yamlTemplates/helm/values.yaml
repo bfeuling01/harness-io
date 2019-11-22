@@ -1,0 +1,92 @@
+name:
+replicas: 1
+
+image:  ${regex.extract('<name>\/.*$', artifact.metadata.image)}
+dockercfg: ${artifact.source.dockerconfig}
+
+createImagePullSecret: false
+
+createNamespace: true
+namespace:
+deploymentName:
+
+# Kubernetes Service Information
+service:
+  annotations:
+    key:
+  svcSelector:
+    key:
+  svcName:
+  svcType:
+  svcTrafficPol:
+  httpSvcPort:
+    name:
+    httpPort:
+      port:
+      protocol:
+      targetPort:
+  httpsSvcPort:
+    enabled: false
+    name:
+    httpsPort:
+      port:
+      protocol:
+      targetPort:
+
+# HPA Data
+hpa:
+  enabled: false
+  minReplicas: 0
+  maxReplicas: 0
+  resourceName: ""
+  targetAverageUtilization: 0
+
+# EnvFrom Secrets
+secretRefEnabled: false
+secrets:
+  - secretRef:
+      name:
+
+# EnvFrom ConfigMap
+configMapRefEnabled: false
+configMap:
+  - configMapRef:
+      name:
+
+# Container Resources
+resourcesEnabled: false
+resources:
+  requests:
+    cpu:
+    memory:
+  limits:
+    cpu:
+    memory:
+
+# Container Specific Networking
+ports:
+  - containerPort: 8080
+    name: http
+    protocol: TCP
+
+# Container Probes
+probesEnabled: false
+probes:
+  readinessProbe:
+    httpGet:
+      path:
+      port:
+    initialDelaySeconds:
+    timeoutSeconds:
+    failureThreshold:
+    successThreshold:
+    periodSeconds:
+  livenessProbe:
+    httpGet:
+      path:
+      port:
+    initialDelaySeconds:
+    timeoutSeconds:
+    failureThreshold:
+    successThreshold:
+    periodSeconds:
