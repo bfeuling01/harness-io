@@ -1,6 +1,6 @@
 # YAML Files
 
-#### yamlTemplates
+#### Helm
 
 If you are using (or looking into using) Helm and Harness, these files will help you templatize that usage for best practices
 in administration going forward.
