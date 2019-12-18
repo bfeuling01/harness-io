@@ -11,23 +11,23 @@ type: kubernetes.io/dockercfg
 ---
 {{- end}}
 
-{{- if .Values.env.config}}
+{{- if .Values.configMapRefEnabled}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{.Values.name}}
 data:
-{{.Values.env.config | toYaml | indent 2}}
+{{.Values.configMap | toYaml | indent 2}}
 ---
 {{- end}}
 
-{{- if .Values.env.secrets}}
+{{- if .Values.secretRefEnabled}}
 apiVersion: v1
 kind: Secret
 metadata:
   name: {{.Values.name}}
 stringData:
-{{.Values.env.secrets | toYaml | indent 2}}
+{{.Values.secrets | toYaml | indent 2}}
 ---
 {{- end}}
 
