@@ -1,0 +1,73 @@
+{{- if .Values.createImagePullSecret}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{.Values.name}}-dockercfg
+  annotations:
+    harness.io/skip-versioning: true
+data:
+  .dockercfg: {{.Values.dockercfg}}
+type: kubernetes.io/dockercfg
+---
+{{- end}}
+
+{{- if .Values.hpa.enabled}}
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{.Values.name}}-hpa
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: {{.Values.deploymentName}}
+  minReplicas: {{.Values.hpa.minReplicas}}
+  maxReplicas: {{.Values.hpa.maxReplicas}}
+  metrics:
+  - type: Resource
+    resource:
+      name: {{.Values.hpa.resourceName}}
+      target:
+        type: Utilization
+        averageUtilization: {{.Values.hpa.targetAverageUtilization}}
+---
+{{- end}}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.deploymentName}}
+spec:
+  replicas: {{int .Values.replicas}}
+  selector:
+    matchLabels:
+      app: {{.Values.name}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.name}}
+    spec:
+      {{- if .Values.createImagePullSecret}}
+      imagePullSecrets:
+      - name: {{.Values.name}}-dockercfg
+      {{- end}}
+      containers:
+      - name: {{.Values.name}}
+        image: {{.Values.image}}
+        envFrom:
+        {{- if .Values.configMapRefEnabled}}
+{{.Values.configMap | toYaml | indent 8}}
+        {{- end}}
+        {{- if .Values.secretRefEnabled}}
+{{.Values.secrets | toYaml | indent 8}}
+        {{- end}}
+        {{- if .Values.resourcesEnabled}}
+        resources:
+{{.Values.resources | toYaml | indent 10}}
+        {{- end}}
+        {{- if .Values.probesEnabled}}
+{{.Values.probes | toYaml | indent 8}}
+        {{- end}}
+        {{- if .Values.ports}}
+        ports:
+{{.Values.ports | toYaml | indent 8}}
+        {{- end}}
