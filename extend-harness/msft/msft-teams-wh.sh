@@ -1,2 +1,3 @@
-WEBHOOK_URL='https://outlook.office.com/webhook/524411e3-408b-4e0a-9a0b-e3b0249c272d@7c29961d-62cb-43be-b56c-62709150fb5c/IncomingWebhook/1f0f764bfc184aeb9a53e10c90e15444/af5a9641-335e-477b-9899-01ae51da86ad'
+WEBHOOK_URL='<Webhook URL>'
+
 curl -H "Content-Type: application/json" -d "{\"title\":\"Harness: ${workflow.name}-${msg}\",\"themeColor\":\"25ADE4\",\"summary\":\"Harness Deployment\",\"sections\":[{\"facts\":[{\"name\":\"Deployment URL\",\"value\":\"${deploymentUrl}\"},{\"name\":\"Service Name\",\"value\":\"${service.name}\"},{\"name\":\"Artifact\",\"value\":\"${artifact.metadata.image}:${artifact.metadata.tag}\"},{\"name\":\"Environment\",\"value\":\"${env.name}\"},{\"name\":\"Workflow\",\"value\":\"${workflow.name}\"},{\"name\":\"Triggered By\",\"value\":\"${deploymentTriggeredBy}\"}]}]}" "${WEBHOOK_URL}"
