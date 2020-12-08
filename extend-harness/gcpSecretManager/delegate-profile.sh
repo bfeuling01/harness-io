@@ -1,6 +1,14 @@
 apt-get update
 
+echo " "
+echo "Install jq"
+echo " "
+apt-get install jq -y
+
 # Install Python
+echo " "
+echo "Install python"
+echo " "
 apt-get install python -y
 
 if which gcloud; then
