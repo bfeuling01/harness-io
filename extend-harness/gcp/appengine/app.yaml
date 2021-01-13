@@ -1,8 +1,0 @@
-runtime: python37
-
-instance_class: F1
-
-service: harness-io
-
-env_variables:
-  key1: value1
