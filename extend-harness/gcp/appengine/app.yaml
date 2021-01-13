@@ -1,0 +1,8 @@
+runtime: python39
+
+instance_class: F1
+
+service: a-bf-gae
+
+env_variables:
+  key1: value1
