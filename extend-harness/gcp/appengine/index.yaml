@@ -1,8 +1,0 @@
-indexes:
-- kind: Store
-  ancestor: no
-  properties:
-  - name: business
-    direction: asc
-  - name: owner
-    direction: asc
