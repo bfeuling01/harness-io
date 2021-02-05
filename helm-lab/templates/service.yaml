@@ -3,8 +3,8 @@ kind: Service
 metadata:
   name: {{ include "helmHook.fullname" . }}
   labels:
-    app.kubernetes.io/name: {{ include "helmHook.name" . | lower}}
-    helm.sh/chart: {{ include "helmHook.chart" . }}
+    app.kubernetes.io/name: {{ include "helmhook.name" . | lower}}
+    helm.sh/chart: {{ include "helmhook.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
@@ -15,5 +15,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: {{ include "helmHook.name" . | lower}}
+    app.kubernetes.io/name: {{ include "helmhook.name" . | lower}}
     app.kubernetes.io/instance: {{ .Release.Name }}
