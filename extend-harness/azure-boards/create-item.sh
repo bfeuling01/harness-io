@@ -1,1 +1,0 @@
-export AZURE_WI_ID=`az boards work-item create --title "${wiTitle}" --type "${wiType}" --area "${wiArea}" --assigned-to "${wiAssignedTo}" --description "${wiDescription}" --discussion "${wiDiscuss}" --project "${wiProject}" --query id`
