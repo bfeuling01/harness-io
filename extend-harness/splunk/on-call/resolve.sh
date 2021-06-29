@@ -1,0 +1,1 @@
+curl -X PATCH --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'X-VO-Api-Id: ${secrets.getValue("victorops-api-id")}' --header 'X-VO-Api-Key: ${secrets.getValue("victorops-api-token")}' -d "{\"userName\": \"${USERNAME}\", \"incidentNames\":[\"${INCIDENT}\"]}" 'https://api.victorops.com/api-public/v1/incidents/resolve'
